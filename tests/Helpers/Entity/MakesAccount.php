@@ -19,7 +19,7 @@ trait MakesAccount
         $account->setCreated($accountConditions['created'] ?? date(DATE_ATOM));
         $account->setInvestments($accountConditions['investments'] ?? new ArrayCollection([$this->makeInvestment()]));
         $account->setTransactions($accountConditions['transactions'] ?? new ArrayCollection([$this->makeDeposit()]));
-        $account->setType($accountConditions['type'] ?? AccountType::ISA);
+        $account->setType($accountConditions['type'] ?? AccountType::STOCKS_SHARES);
 
         return $account;
     }

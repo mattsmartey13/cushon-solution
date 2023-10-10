@@ -37,18 +37,17 @@ class AccountController extends AbstractController
         return null;
     }
 
-    #[Route('/account/create')]
+    #[Route('customer/{customerId}/account/create')]
     public function createNew(Customer $customer): void
     {
-        if (!$this->doesCustomerHaveAnExistingIsa($customer, AccountType::ISA)) {
+        if ($this->doesCustomerHaveAnExistingInvestmentIsa($customer, AccountType::STOCKS_SHARES) === false) {
             /**
              * Take customer to account builder...
              */
         }
     }
 
-    #[Route('/account/create/validate')]
-    private function doesCustomerHaveAnExistingIsa(Customer $customer, AccountType $type): ?bool
+    private function doesCustomerHaveAnExistingInvestmentIsa(Customer $customer, AccountType $type): ?bool
     {
         try {
             return (bool) $this->accountRepository->findOneByIsaType($customer, $type);
